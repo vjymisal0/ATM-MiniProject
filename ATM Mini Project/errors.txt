@@ -1,0 +1,65 @@
+String bankName = null, nextOption = null;
+    int option = 0;
+    double amount = 0.0, withdrawAmount = 0.0;
+    Scanner sc = new Scanner(System.in);
+    Start1:while (true) {
+      System.out.println("Enter ATM Card(bank name): ");
+      bankName = sc.next();
+      try {
+        Bank bank = (Bank) Class.forName(bankName).newInstance();
+        Start:while (true) {
+          System.out.println("Choose Option");
+          System.out.println("1. Deposite");
+          System.out.println("2. Withdraw");
+          System.out.println("3. Exit");
+          option = sc.nextInt();
+          try {
+            switch (option) {
+              case 1:
+                System.out.println("Enter amount to deposite: ");
+                amount = sc.nextDouble();
+                bank.deposite(amount);
+                break;
+              case 2:
+                System.out.println("Enter amount to withdraw: ");
+                amount = sc.nextDouble();
+                withdrawAmount = bank.withdraw(amount);
+                System.out.println("Collect " + withdrawAmount + " cash");
+                break;
+              case 3:
+                break Start;
+              default:
+                System.out.println("Invalid Option");
+            } //switch case close
+            System.out.println("Do you want to continue: ");
+            System.out.println("Y or N: ");
+            nextOption = sc.next();
+            if ("N".equalsIgnoreCase(nextOption)) break Start1;
+          } catch (InvalidAmountException e) {
+            System.out.println(e.getMessage());
+            } catch (InsufficientBalanceException e) {
+            System.out.println(e.getMessage());
+            } catch (Exception e) {
+            System.out.println(e.getMessage());
+            }
+            }
+          }
+
+          /* 
+          } catch (InvalidAmountException e) { //inner try closed
+            System.out.println(e.getMessage());
+          } catch (InsufficientBalanceException e) {
+            System.out.println(e.getMessage());
+          } catch (Exception e) { //inner catch block
+            System.out.println(e.getMessage());
+          }
+        }
+      } catch (ClassNotFoundException e) {
+        System.out.println(e.getMessage());
+      } catch (Exception e) { //outer catch closed
+        System.out.println(e.getMessage());
+      }
+    }
+  } //main method closed
+} //class closed
+*/
